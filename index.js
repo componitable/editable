@@ -44,7 +44,8 @@ function blur(elements, fn) {
 module.exports = blur;
 
 /**
- * Get a data attribute, and search up through the DOM tree to parent nodes if the attribute isn't present on the current node.
+ * Get a data attribute, and search up through the DOM tree to parent nodes if the attribute
+ * isn't present on the current node.
  * 
  * @param  {Element} element
  * @param  {String}  name    will have 'data-' prepended before passing to getAttribute

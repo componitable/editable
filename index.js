@@ -1,3 +1,6 @@
+var emitter = require('emitter');
+
+emitter(module.exports);
 
 /**
  * Iterate over the elements and call the function as if forEach was used on an array.

@@ -4,7 +4,9 @@
   "description": "Inline editing inspired by jEditable",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "component/emitter": "*"
+  },
   "development": {},
   "scripts": [
     "index.js"

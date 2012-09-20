@@ -41,7 +41,7 @@ function blur(elements, fn) {
     }, false);
   });
 }
-module.exports = blur;
+module.exports.blur = blur;
 
 /**
  * Get a data attribute, and search up through the DOM tree to parent nodes if the attribute
@@ -66,4 +66,4 @@ function attribute(element, name, value) {
     return res === '' ? null : res;
   }
 }
-module.exports = attribute;
+module.exports.attribute = attribute;

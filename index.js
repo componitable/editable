@@ -71,3 +71,39 @@ function attribute(element, name, value) {
   }
 }
 module.exports.attribute = attribute;
+
+/**
+ * Get the inner dimensions of an element
+ */
+function dimensions(element) {
+  var style = getStyle(element);
+  var box = element.getBoundingClientRect();
+
+  var width = box.width - (style('paddingLeft') + style('paddingRight'));
+  var height = box.height - (style('paddingTop') + style('paddingBottom'));
+
+  return {width: Math.floor(width), height: Math.floor(height)};
+}
+module.exports.dimensions = dimensions;
+
+function transformDimensions(element, dimensions) {
+  var height = dimensions.height;
+  var width = dimensions.width;
+  var style = getStyle(element);
+
+  height -= (style('paddingTop') + style('paddingBottom'));
+  height -= (style('marginTop') + style('marginBottom'));
+  width -= (style('paddingLeft') + style('paddingRight'));
+  width -= (style('marginLeft') + style('marginRight'));
+  width -= (style('borderTopWidth') + style('borderBottomWidth'));
+
+  return {height: height, width: width};
+}
+module.exports.transformDimensions = transformDimensions;
+
+function getStyle(element) {
+  var style = window.getComputedStyle(element);
+  return function (name) {
+    return parseFloat(style[name].replace(/px$/g, ''));
+  }
+}

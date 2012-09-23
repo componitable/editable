@@ -11,7 +11,8 @@ emitter(module.exports);
  * @param  {Function(Element, Index, NodeList|Array)} fn
  */
 function forEach(elements, fn) {
-  if (typeof elements.length === 'undefined') elements = [elements];
+  if (typeof elements === 'string') elements = document.querySelectorAll(elements);
+  if (typeof elements.length === 'undefined') elements = [elements];  
   Array.prototype.forEach.call(elements, fn);
 }
 module.exports.forEach = forEach;

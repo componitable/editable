@@ -93,9 +93,10 @@ function transformDimensions(element, dimensions) {
 
   height -= (style('paddingTop') + style('paddingBottom'));
   height -= (style('marginTop') + style('marginBottom'));
+  height -= (style('borderTopWidth') + style('borderBottomWidth'));
   width -= (style('paddingLeft') + style('paddingRight'));
   width -= (style('marginLeft') + style('marginRight'));
-  width -= (style('borderTopWidth') + style('borderBottomWidth'));
+  width -= (style('borderLeftWidth') + style('borderRightWidth'));
 
   return {height: height, width: width};
 }

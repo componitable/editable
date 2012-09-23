@@ -23,17 +23,21 @@ In Development
 
 This module provides an api for the other modules to use.  It is intended to provide neat wrappers for the shared functionality between all these other renderers.
 
+### Events
+
+The module exports an [event emitter](https://github.com/component/emitter).  Editor Components should always emmit events on this so that they can be handled easilly at a universal level.
+
 ### editable.forEach(elements, fn)
 
-Equivalent to `Array.prototype.forEach` but works on sudo-arrays like NodeList and also treats non-arrays as single element arrays.  This lets you easilly make functions that can be called with one or many elements equivalently.
+Equivalent to `Array#forEach` but works on sudo-arrays like NodeList and also treats non-arrays as single element arrays and performs `document.querySelectorAll` on strings.  This lets you easilly make functions that can be called with one or many elements equivalently.
 
 ### editable.click(elements, fn)
 
-Handle click for one or many elements, and call the function with the element and the MouseEvent.
+Handle click for one or many elements (anything accepted by `forEach`), and call the function with the element and the MouseEvent.
 
 ### editable.blur(elements, fn)
 
-Handle the blur event, same as click above.
+Handle the blur event for one or many elements (anything accepted by `forEach`), and call the function with the element.
 
 ### editable.attribute(element, name, [value])
 

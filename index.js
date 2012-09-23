@@ -62,10 +62,10 @@ function attribute(element, name, value) {
   if (arguments.length === 3) {
     element.setAttribute(name, value);
   } else {
-    var res = element.getAttribute(name);
-    while ((res === null || res === '') && element.parentNode !== null) {
-      element = element.parentNode;
+    var res = null;
+    while ((res === null || res === '') && element && typeof element.getAttribute !== 'undefined') {
       res = element.getAttribute(name);
+      element = element.parentNode;
     }
     return res === '' ? null : res;
   }

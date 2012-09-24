@@ -77,12 +77,11 @@ module.exports.attribute = attribute;
  */
 function dimensions(element) {
   var style = getStyle(element);
-  var box = element.getBoundingClientRect();
 
-  var width = box.width - (style('paddingLeft') + style('paddingRight'));
-  var height = box.height - (style('paddingTop') + style('paddingBottom'));
+  var width = style('width');
+  var height = style('height');
 
-  return {width: Math.floor(width), height: Math.floor(height)};
+  return {width: width, height: height};
 }
 module.exports.dimensions = dimensions;
 

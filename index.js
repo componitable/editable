@@ -85,17 +85,18 @@ function dimensions(element) {
 }
 module.exports.dimensions = dimensions;
 
-function transformDimensions(element, dimensions) {
+function transformDimensions(element, dimensions, ignore) {
+  ignore = ignore || {};
   var height = dimensions.height;
   var width = dimensions.width;
   var style = getStyle(element);
 
-  height -= (style('paddingTop') + style('paddingBottom'));
-  height -= (style('marginTop') + style('marginBottom'));
-  height -= (style('borderTopWidth') + style('borderBottomWidth'));
-  width -= (style('paddingLeft') + style('paddingRight'));
-  width -= (style('marginLeft') + style('marginRight'));
-  width -= (style('borderLeftWidth') + style('borderRightWidth'));
+  if (!ignore.padding && !ignore.paddingVertical) height -= (style('paddingTop') + style('paddingBottom'));
+  if (!ignore.margin && !ignore.marginVertical) height -= (style('marginTop') + style('marginBottom'));
+  if (!ignore.border && !ignore.borderVertical) height -= (style('borderTopWidth') + style('borderBottomWidth'));
+  if (!ignore.padding && !ignore.paddingHorizontal) width -= (style('paddingLeft') + style('paddingRight'));
+  if (!ignore.margin && !ignore.marginHorizontal) width -= (style('marginLeft') + style('marginRight'));
+  if (!ignore.border && !ignore.borderHorizontal) width -= (style('borderLeftWidth') + style('borderRightWidth'));
 
   return {height: height, width: width};
 }

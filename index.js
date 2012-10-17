@@ -24,10 +24,9 @@ module.exports.forEach = forEach;
  * @param  {Function(Element, MouseEvent)} fn
  */
 function click(elements, fn) {
+  var handler = makeHandler(fn);
   forEach(elements, function (element) {
-    element.addEventListener('click', function (eventArgs) {
-      return fn(element, eventArgs);
-    }, false);
+    element.addEventListener('click', handler, false);
   });
 }
 module.exports.click = click;
@@ -39,13 +38,18 @@ module.exports.click = click;
  * @param  {Function(Element, BlurEvent)}  fn
  */
 function blur(elements, fn) {
+  var handler = makeHandler(fn);
   forEach(elements, function (element) {
-    element.addEventListener('blur', function (eventArgs) {
-      return fn(element, eventArgs);
-    }, false);
+    element.addEventListener('blur', handler, false);
   });
 }
 module.exports.blur = blur;
+
+function makeHandler(fn) {
+  return function (eventArgs) {
+    return fn(this, eventArgs);
+  };
+}
 
 /**
  * Get a data attribute, and search up through the DOM tree to parent nodes if the attribute

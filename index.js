@@ -17,39 +17,31 @@ function forEach(elements, fn) {
 }
 module.exports.forEach = forEach;
 
-/**
- * Handle click for each element in the element list
- * 
- * @param  {NodeList|Array|Element}        elements
- * @param  {Function(Element, MouseEvent)} fn
- */
-function click(elements, fn) {
-  var handler = makeHandler(fn);
-  forEach(elements, function (element) {
-    element.addEventListener('click', handler, false);
-  });
-}
-module.exports.click = click;
+function eventAttacher(name) {
+  return function (elements, opts, fn) {
+    if (arguments.length === 2) {
+      fn = opts;
+      opts = {};
+    }
+    opts = opts || {};
+    if (opts.live != false && typeof elements === 'string') {
+      
+    }
 
-/**
- * Handle the event fired when a(n) element(s) loos(es) focus
- * 
- * @param  {NodeList|Array|Element}        elements
- * @param  {Function(Element, BlurEvent)}  fn
- */
-function blur(elements, fn) {
-  var handler = makeHandler(fn);
-  forEach(elements, function (element) {
-    element.addEventListener('blur', handler, false);
-  });
+    var handler = makeHandler(fn);
+    forEach(elements, function (element) {
+      element.addEventListener(name, handler, false);
+    });
+  };
 }
-module.exports.blur = blur;
-
 function makeHandler(fn) {
   return function (eventArgs) {
     return fn(this, eventArgs);
   };
 }
+
+module.exports.click = eventAttacher('click');
+module.exports.blur = eventAttacher('blur');
 
 /**
  * Get a data attribute, and search up through the DOM tree to parent nodes if the attribute

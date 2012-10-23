@@ -1,4 +1,5 @@
 var emitter = require('emitter');
+var matchesSelector = require('matches-selector');
 
 emitter(module.exports);
 
@@ -25,7 +26,15 @@ function eventAttacher(name) {
     }
     opts = opts || {};
     if (opts.live != false && typeof elements === 'string') {
-      
+      function liveHandler (eventArgs) {
+        if (matchesSelector(eventArgs.target, elements)) {
+          fn(eventArgs.target, eventArgs);
+        }
+      }
+      document.addEventListener(name, liveHandler, false);
+      return;
+    } else if (opts.live === true) {
+      throw new Error('Live option only works when elements is a string.');
     }
 
     var handler = makeHandler(fn);
